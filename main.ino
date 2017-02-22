@@ -1,6 +1,15 @@
-#include <AFMotor.h>
-AF_DCMotor motorlinks(1);
-AF_DCMotor motorrechts(2);
+//----- Libraries -----//
+#include "Motors.h"
+
+//----- Initialisierungen -----//
+extern void Vorwaertsfahren(int steps);
+extern void Zurueckfahren(int steps);
+extern void Linksfahren(int steps);
+extern void Rechtsfahren(int steps);
+extern void MotorStop();
+extern void setSpeedRight(uint16_t speed);
+extern void setSpeedLeft(uint16_t speed);
+
 
 void setup() {
   Serial.begin(9600);           // set up Serial library at 9600 bps
@@ -12,36 +21,10 @@ void setup() {
   motorrechts.run(RELEASE);
 }
 
-void loop() {
-  uint8_t i;
-  
-  
+void loop() {  
   motor.run(FORWARD);
-  for (i=0; i<255; i++) {
-    motor.setSpeed(i);  
-    delay(10);
- }
- 
-  for (i=255; i!=0; i--) {
-    motor.setSpeed(i);  
-    delay(10);
- }
-  
-  Serial.print("tock");
-
   motor.run(BACKWARD);
-  for (i=0; i<255; i++) {
-    motor.setSpeed(i);  
-    delay(10);
- }
- 
-  for (i=255; i!=0; i--) {
-    motor.setSpeed(i);  
-    delay(10);
- }
-  
-
-  Serial.print("tech");
+  motor.setSpeed(i);  
   motor.run(RELEASE);
   delay(1000);
 }
