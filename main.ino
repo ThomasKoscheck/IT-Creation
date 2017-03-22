@@ -1,5 +1,13 @@
+//----- Variablendefinition -----//
+const uint16_t stepspruefung = 10; //nicht dokumentierte Fall
+  //-----Sensorwerte der Farbsensoren -----//
+  extern bool leftBool;
+  extern bool midBool;
+  extern bool rightBool;
+
 //----- Libraries -----//
 #include "Motors.h"
+#include "Sensors.h"
 
 //----- Initialisierungen -----//
 extern void Vorwaertsfahren(int steps);
@@ -9,22 +17,28 @@ extern void Rechtsfahren(int steps);
 extern void MotorStop();
 extern void setSpeedRight(uint16_t speed);
 extern void setSpeedLeft(uint16_t speed);
-
+extern void StepperInit();
 
 void setup() {
   Serial.begin(9600);           // set up Serial library at 9600 bps
-
-  // turn on motor
-  motorlinks.setSpeed(200);
-  motorrechts.setSpeed(200);
-  motorlinks.run(RELEASE);
-  motorrechts.run(RELEASE);
+  StepperInit();
 }
 
-void loop() {  
-  motor.run(FORWARD);
-  motor.run(BACKWARD);
-  motor.setSpeed(i);  
-  motor.run(RELEASE);
-  delay(1000);
+void loop() { 
+  while(true)
+  {
+    //------- weiss-schwarz-weiss -------//
+    if(leftBool && !midBool && rightBool)  {
+        Serial.println("wsw");
+        Vorwaertsfahren(1);
+        LineUpdate();
+    }
+    
+    //------- nicht dokumentierter Fall -------//
+    else {
+       Serial.println("----");
+       Vorwaertsfahren(stepspruefung);
+       LineUpdate();
+    }
+  }
 }
