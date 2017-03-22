@@ -6,7 +6,13 @@ AF_DCMotor motorLinks(1);
 AF_DCMotor motorRechts(2);
 
 int pinRechts = 8;
-int pinLinks = 9
+int pinLinks = 9;
+
+void StepperInit()  {
+    Shield.begin();
+    motorLinks.setSpeed(110);
+    motorRechts.setSpeed(110);
+}
 
 void Vorwaertsfahren(int steps = 10) {
     for(int count = 0; count <= steps; count++)
