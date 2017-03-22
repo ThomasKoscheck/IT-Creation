@@ -1,9 +1,13 @@
 //----- Variablendefinition -----//
 const uint16_t stepspruefung = 10; //nicht dokumentierte Fall
-  //-----Sensorwerte der Farbsensoren -----//
-  extern bool leftBool;
-  extern bool midBool;
-  extern bool rightBool;
+extern bool distance;   //Roboter zu nah an Hindernis
+extern int blinkerRechts;   
+extern int blinkerLinks;    
+
+//-----Sensorwerte der Farbsensoren -----//
+extern bool leftBool;
+extern bool midBool;
+extern bool rightBool;
 
 //----- Libraries -----//
 #include "Motors.h"
@@ -18,6 +22,7 @@ extern void MotorStop();
 extern void setSpeedRight(uint16_t speed);
 extern void setSpeedLeft(uint16_t speed);
 extern void StepperInit();
+extern void blink(int pin, bool anaus);
 
 void setup() {
   Serial.begin(9600);           // set up Serial library at 9600 bps
@@ -50,7 +55,14 @@ void loop() {
         Serial.println("sww");
         turnleft();     //dreht solang nach links bis wieder auf schwarz
       	LineUpdate();
-}
+    }
+    
+    //------- Hindernis erkannt -------//
+    else if(!distance) 
+    {
+      blink(pinLinks, true);
+      blink
+    }
     
     //------- nicht dokumentierter Fall -------//
     else {
