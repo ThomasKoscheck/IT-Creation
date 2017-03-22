@@ -24,15 +24,33 @@ void setup() {
   StepperInit();
 }
 
+
+// ----------------------------------------------- Main loop ----------------------------------------------- //
 void loop() { 
-  while(true)
-  {
+  while(true)  {
+    
+    LineUpdate(); //laesst den Sensor "sensor" die Daten in den Variablen Typ (siehe oben) aktualisieren
+
     //------- weiss-schwarz-weiss -------//
     if(leftBool && !midBool && rightBool)  {
         Serial.println("wsw");
         Vorwaertsfahren(1);
         LineUpdate();
     }
+    
+    //------- weiss-weiss-schwarz -------//
+    else if(leftBool && midBool && !rightBool) {
+        Serial.println("wws");
+        turnright();       //dreht solang nach rechts bis wieder auf schwarz
+      	LineUpdate();
+    }
+
+    //------- schwarz-weiss-weiss -------//
+    else if(!leftBool && midBool && rightBool) {
+        Serial.println("sww");
+        turnleft();     //dreht solang nach links bis wieder auf schwarz
+      	LineUpdate();
+}
     
     //------- nicht dokumentierter Fall -------//
     else {
