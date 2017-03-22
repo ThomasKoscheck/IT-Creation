@@ -5,24 +5,35 @@
 AF_DCMotor motorLinks(1);
 AF_DCMotor motorRechts(2);
 
+int pinRechts = 8;
+int pinLinks = 9
+
 void Vorwaertsfahren(int steps = 10) {
     motorLinks.run(FORWARD);
     motorRechts.run(FORWARD);
 }
 
 void Linksfahren(int steps = 10) {
+    blink(pinLinks, true);
     motorLinks.run(BACKWARD);
     motorRechts.run(FORWARD);
+    blink(pinLinks, false);
 }
 
 void Rechtsfahren(int steps = 10) {
+    blink(pinRechts, true);
     motorLinks.run(FORWARD);
     motorRechts.run(BACKWARD);
+    blink(pinLinks, false);
 }
 
 void Zurueckfahren(int steps = 10) {
+    blink(pinLinks, true);
+    blink(pinRechts, true);    
     motorLinks.run(BACKWARD);
     motorRechts.run(BACKWARD)
+    blink(pinLinks, false);
+    blink(pinRechts, false);
 }
 
 void MotorStop() {
@@ -37,5 +48,21 @@ void setSpeedLeft(uint16_t speed = 200)  {
 void setSpeedRight(uint16_t speed = 200)    {
     motorRechts.setSpeed(speed);
 }
+
+void blink(int pin, bool anaus)
+{
+   pinMode(pin, OUTPUT);
+   
+   if(anaus)
+   {
+     digitalWrite(pin, HIGH);
+   }
+    
+   else if(anaus == false)
+   {
+     digitalWrite(pin, LOW);
+   } 
+}
+
 
 #endif
