@@ -9,29 +9,41 @@ int pinRechts = 8;
 int pinLinks = 9
 
 void Vorwaertsfahren(int steps = 10) {
-    motorLinks.run(FORWARD);
-    motorRechts.run(FORWARD);
+    for(int count = 0; count <= steps; count++)
+    {
+        motorLinks.run(FORWARD);
+        motorRechts.run(FORWARD);
+    }
 }
 
 void Linksfahren(int steps = 10) {
     blink(pinLinks, true);
-    motorLinks.run(BACKWARD);
-    motorRechts.run(FORWARD);
+    for(int count = 0; count <= steps; count++)
+    {
+        motorLinks.run(BACKWARD);
+        motorRechts.run(FORWARD);
+    }
     blink(pinLinks, false);
 }
 
 void Rechtsfahren(int steps = 10) {
     blink(pinRechts, true);
-    motorLinks.run(FORWARD);
-    motorRechts.run(BACKWARD);
+    for(int count = 0; count <= steps; count++)
+    {
+        motorLinks.run(FORWARD);
+        motorRechts.run(BACKWARD);
+    }
     blink(pinLinks, false);
 }
 
 void Zurueckfahren(int steps = 10) {
     blink(pinLinks, true);
-    blink(pinRechts, true);    
-    motorLinks.run(BACKWARD);
-    motorRechts.run(BACKWARD)
+    blink(pinRechts, true);
+    for(int count = 0; count <= steps; count++)
+    {
+        motorLinks.run(BACKWARD);
+        motorRechts.run(BACKWARD);
+    }
     blink(pinLinks, false);
     blink(pinRechts, false);
 }
