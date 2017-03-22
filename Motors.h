@@ -5,8 +5,8 @@
 AF_DCMotor motorLinks(1);
 AF_DCMotor motorRechts(2);
 
-int pinRechts = 8;
-int pinLinks = 9;
+int blinkerRechts = 8;
+int blinkerLinks = 9;
 
 void StepperInit()  {
     Shield.begin();
@@ -23,35 +23,35 @@ void Vorwaertsfahren(int steps = 10) {
 }
 
 void Linksfahren(int steps = 10) {
-    blink(pinLinks, true);
+    blink(blinkerLinks, true);
     for(int count = 0; count <= steps; count++)
     {
         motorLinks.run(BACKWARD);
         motorRechts.run(FORWARD);
     }
-    blink(pinLinks, false);
+    blink(blinkerLinks, false);
 }
 
 void Rechtsfahren(int steps = 10) {
-    blink(pinRechts, true);
+    blink(blinkerRechts, true);
     for(int count = 0; count <= steps; count++)
     {
         motorLinks.run(FORWARD);
         motorRechts.run(BACKWARD);
     }
-    blink(pinLinks, false);
+    blink(blinkerRechts, false);
 }
 
 void Zurueckfahren(int steps = 10) {
-    blink(pinLinks, true);
-    blink(pinRechts, true);
+    blink(blinkerLinks, true);
+    blink(blinkerRechts, true);
     for(int count = 0; count <= steps; count++)
     {
         motorLinks.run(BACKWARD);
         motorRechts.run(BACKWARD);
     }
-    blink(pinLinks, false);
-    blink(pinRechts, false);
+    blink(blinkerLinks, false);
+    blink(blinkerRechts, false);
 }
 
 void MotorStop() {
